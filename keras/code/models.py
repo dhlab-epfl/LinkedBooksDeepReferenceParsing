@@ -35,7 +35,7 @@ def BiLSTM_model(filename, train, output,
               word_embeddings=True, pretrained_embedding="", word_embedding_size=100,
               maxChar=0, char_embedding_type="", char2ind="", char_embedding_size=50,
               lstm_hidden=32, nbr_epochs=5, batch_size=32, dropout=0, optimizer='rmsprop', early_stopping_patience=-1,
-              folder_path="model_results", gen_confusion_matrix=False
+              folder_path="model_results", gen_confusion_matrix=False, printPadding=False
             ):    
     """
         Build, train and test a BiLSTM Keras model. Works for multi-tasking learning.
@@ -89,6 +89,7 @@ def BiLSTM_model(filename, train, output,
 
         :param folder_path: Path to the directory storing all to-be-generated files
         :param gen_confusion_matrix: Boolean value. Generated confusion matrices or not.
+        :param printPadding: Boolean. Prints the classification matrix taking padding as a possible label.
 
 
         :return: The classification scores for both tasks.
@@ -218,12 +219,13 @@ def BiLSTM_model(filename, train, output,
                 print("====================================================================================")
 
             print("")
-            print("With padding into account")
-            print(metrics.flat_classification_report([target], [predictions], digits=4))
-            print("")
-            print('----------------------------------------------')
-            print("")
-            print("Without the padding:")
+            if printPadding:
+                print("With padding into account")
+                print(metrics.flat_classification_report([target], [predictions], digits=4))
+                print("")
+                print('----------------------------------------------')
+                print("")
+                print("Without the padding:")
             print(metrics.flat_classification_report([target], [predictions], digits=4, labels=list(ind2label[i].values())))
 
             # Generate confusion matrices
@@ -240,7 +242,7 @@ def BiLSTM_model(filename, train, output,
 
 
 def character_embedding_layer(layer_type, character_input, maxChar, nbr_chars, char_embedding_size, 
-                            cnn_kernel_size=2, cnn_filters=30, lstm_units=50, dropout=0.5):
+                            cnn_kernel_size=2, cnn_filters=30, lstm_units=50):
     """
         Return layer for computing the character-level representations of words.
         
@@ -248,14 +250,12 @@ def character_embedding_layer(layer_type, character_input, maxChar, nbr_chars, c
 
             Architecture CNN:
                 - Character Embeddings
-                - Dropout
                 - Flatten
                 - Convolution
                 - MaxPool
 
             Architecture BILSTM:
                 - Character Embeddings
-                - Dropout
                 - Flatten
                 - Bidirectional LSTM
 
@@ -267,21 +267,19 @@ def character_embedding_layer(layer_type, character_input, maxChar, nbr_chars, c
         :param cnn_kernel_size: For the CNN architecture, size of the kernel in the Convolution layer
         :param cnn_filters: For the CNN architecture, number of filters in the Convolution layer
         :param lstm_units: For the BILSTM architecture, dimensionality of the output LSTM space (half of the Bidirectinal LSTM output space)
-        :param dropout: Rate to apply for each Dropout layer in the model
 
         :return: Character-level representation layers
     """
 
     embed_char_out      = TimeDistributed(Embedding(nbr_chars, char_embedding_size), name='char_embedding')(character_input)
-    dropout             = Dropout(dropout)(embed_char_out)
-    dropout             = TimeDistributed(Flatten())(dropout)
+    embed_char          = TimeDistributed(Flatten())(embed_char_out)
     
     if layer_type == "CNN":
-        conv1d_out      = TimeDistributed(Convolution1D(kernel_size=cnn_kernel_size, filters=cnn_filters, padding='same'))(dropout)
+        conv1d_out      = TimeDistributed(Convolution1D(kernel_size=cnn_kernel_size, filters=cnn_filters, padding='same'))(embed_char)
         char_emb        = TimeDistributed(MaxPooling1D(maxChar))(conv1d_out)
     
     if layer_type == "BILSTM":
-        char_emb        = Bidirectional(LSTM(lstm_units,return_sequences=True))(dropout)
+        char_emb        = Bidirectional(LSTM(lstm_units,return_sequences=True))(embed_char)
     
     return char_emb
 
@@ -304,3 +302,4 @@ def get_optimizer(type, learning_rate=0.001, decay=0.0):
 
     if type == "rmsprop":
         return RMSprop(lr=learning_rate, decay=decay)
+

@@ -37,19 +37,19 @@ def load_data(filepath):
             The first item on each line is a word, the second, third and fourth are tags related to the word.
         Example:
             The sentence "L. Antonielli, Iprefetti dell' Italia napoleonica, Bologna 1983." is represented in the dataset as:
-                L author b-s b-secondary b-r
-                . author i-s i-secondary i-r
-                Antonielli author i-s i-secondary i-r
-                , author i-s i-secondary i-r
-                Iprefetti title i-s i-secondary i-r
-                dell title i-s i-secondary i-r
-                ’ title i-s i-secondary i-r
-                Italia title i-s i-secondary i-r
-                napoleonica title i-s i-secondary i-r
-                , title i-s i-secondary i-r
-                Bologna publicationplace i-s i-secondary i-r
-                1983 year i-s e-secondary i-r
-                . year e-s e-secondary e-r
+                L author b-secondary b-r
+                . author i-secondary i-r
+                Antonielli author i-secondary i-r
+                , author i-secondary i-r
+                Iprefetti title i-secondary i-r
+                dell title i-secondary i-r
+                ’ title i-secondary i-r
+                Italia title i-secondary i-r
+                napoleonica title i-secondary i-r
+                , title i-secondary i-r
+                Bologna publicationplace i-secondary i-r
+                1983 year e-secondary i-r
+                . year e-secondary e-r
 
         :param filepath: Path to the data
         :return: Four arrays: The first one contains sentences (one array of words per sentence) and the other threes are arrays of tags.
@@ -61,9 +61,8 @@ def load_data(filepath):
     tags_1 = []
     tags_2 = []
     tags_3 = []
-    tags_4 = []
 
-    word = tags1 = tags2 = tags3 = tags4 = []
+    word = tags1 = tags2 = tags3 = []
     with open (filepath, "r") as file:
         for line in file:
             if 'DOCSTART' not in line: #Do not take the first line into consideration
@@ -74,14 +73,12 @@ def load_data(filepath):
                     tags_1.append(tags1)
                     tags_2.append(tags2)
                     tags_3.append(tags3)
-                    tags_4.append(tags4)
 
                     # Reset
                     word = []
                     tags1 = []
                     tags2 = []
                     tags3 = []
-                    tags4 = []
 
                 else:
                     # Split the line into words, tag #1, tag #2, tag #3
@@ -90,9 +87,8 @@ def load_data(filepath):
                     tags1.append(w[1])
                     tags2.append(w[2])
                     tags3.append(w[3])
-                    tags4.append(w[4])
 
-    return words,tags_1,tags_2,tags_3,tags_4
+    return words,tags_1,tags_2,tags_3
 
 
 
@@ -320,7 +316,7 @@ def word2VecEmbeddings(word2ind, num_features_embedding):
     """
 
     # Pre-trained embeddings filepath
-    file_path = "data/pretrained_vectors/vecs_{0}.txt".format(num_features_embedding)
+    file_path = "dataset/pretrained_vectors/vecs_{0}.txt".format(num_features_embedding)
     ukn_index = "$UKN$"
 
     # Read the embeddings file
@@ -427,7 +423,7 @@ class Classification_Scores(Callback):
         self.train_f1s.append(sum(vals_f1)/len(vals_f1))
     
     
-    def classification_report(self, i, pred, targ):
+    def classification_report(self, i, pred, targ, printPadding=False):
         """
             Comput the classification report for the predictions given.
         """
@@ -450,12 +446,13 @@ class Classification_Scores(Callback):
 
         # CLASSIFICATION REPORTS 
         reports.append("")
-        reports.append("With padding into account")
-        reports.append(metrics.flat_classification_report(true_label, pred_label, digits=4))
-        reports.append("")
-        reports.append('----------------------------------------------')
-        reports.append("")
-        reports.append("Without the padding:")
+        if printPadding:
+            reports.append("With padding into account")
+            reports.append(metrics.flat_classification_report(true_label, pred_label, digits=4))
+            reports.append("")
+            reports.append('----------------------------------------------')
+            reports.append("")
+            reports.append("Without the padding:")
         reports.append(metrics.flat_classification_report(true_label, pred_label, digits=4, labels=list(self.ind2label[i].values())))
         return '\n'.join(reports)
     
@@ -658,7 +655,7 @@ def save_confusion_matrix(y_target, y_predictions, labels, figure_path, figure_s
     return
 
 
-def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix', cmap=plt.cm.Blues):
+def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix', cmap=plt.cm.Blues, printToFile=False):
     """
         FROM: http://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html
         This function prints and plots the confusion matrix.
@@ -666,18 +663,17 @@ def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix'
     """
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        print("Normalized confusion matrix")
+        if printToFile: print("Normalized confusion matrix")
     else:
-        print('Confusion matrix, without normalization')
+        if printToFile: print('Confusion matrix, without normalization')
 
-    print(cm)
+    if printToFile: print(cm)
 
-    plt.figure()
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
     plt.colorbar()
     tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=45)
+    plt.xticks(tick_marks, classes, rotation=90)
     plt.yticks(tick_marks, classes)
 
     fmt = '.2f' if normalize else 'd'
