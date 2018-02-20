@@ -675,7 +675,7 @@ if __name__ == "__main__":
     max_iter = None  # if None, max number of examples in Dataset
 
     # general config
-    dir_output = "results/train_%d"%which_tags
+    dir_output = "results/test_run"
     dir_model = os.path.join(dir_output, "model.weights") # not in use here, best model is stored in primary memory
     # vocabs (created with build_data.py)
     filename_words = "working_dir/words.txt"
