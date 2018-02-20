@@ -1,4 +1,4 @@
-# LinkedBooksDeepReferenceParsing
+# Deep Reference Parsing
 
 This repository contains the code for the following article:
     
