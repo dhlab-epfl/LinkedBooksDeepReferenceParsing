@@ -718,7 +718,6 @@ if __name__ == "__main__":
                      train_embeddings=True, dim_char=100, lr_method="rmsprop")
 
     fitted = model.fit(X_train, y_train, X_dev, y_dev, 50)
-    fitted.save_session()
     print("Final f1 score: ",fitted.best_score)
     print("\nValidation:")
     print(str(fitted.evaluate(X_valid, y_valid)))
