@@ -5,6 +5,7 @@ Borrows from: https://github.com/guillaumegenthial/sequence_tagging
 
 import numpy as np
 import tensorflow as tf
+from collections import OrderedDict
 
 # shared global variables
 UNK = "$UNK$"
@@ -259,7 +260,7 @@ def load_vocab(filename):
     :return: dict[word] = index
     """
     try:
-        d = dict()
+        d = OrderedDict()
         with open(filename) as f:
             for idx, word in enumerate(f):
                 word = word.strip()

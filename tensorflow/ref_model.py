@@ -628,6 +628,7 @@ class RefModel(BaseEstimator, ClassifierMixin):
                     best_params = self._get_model_params()
                     nepoch_no_imprv = 0
                     self.best_score = score
+                    self.save_session() # save new params
                     print("- new best score!")
                 else:
                     nepoch_no_imprv += 1
@@ -650,11 +651,9 @@ class RefModel(BaseEstimator, ClassifierMixin):
         :return preds: (list) of tags (string), one for each word in the sentence
         """
 
-        words = [self.processing_word(w) for w in words_raw]
-        if type(words[0]) == tuple:
-            words = zip(*words)
-        pred_ids, _ = self._predict_batch([words])
-        preds = [self.idx_to_tag[idx] for idx in list(pred_ids[0])]
+        words = [[self.processing_word(w)] for w in words_raw]
+        pred_ids, _ = self._predict_batch(words)
+        preds = [self.idx_to_tag[idx[0]] for idx in pred_ids]
 
         return preds
 
