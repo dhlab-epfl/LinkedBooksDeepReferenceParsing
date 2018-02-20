@@ -43,12 +43,7 @@ def interactive_shell(model):
     input> I love Paris""")
 
     while True:
-        try:
-            # for python 2
-            sentence = input("input> ")
-        except NameError:
-            # for python 3
-            sentence = input("input> ")
+        sentence = input("input> ")
 
         words_raw = sentence.strip().split()
 
@@ -72,12 +67,14 @@ max_iter = None  # if None, max number of examples in Dataset
 # general config
 dir_output = "results/test_run"
 dir_model = os.path.join(dir_output, "model.weights") # not in use here, best model is stored in primary memory
-# vocabs (created with build_data.py)
+
+# vocabs (created with build_data)
 filename_words = "working_dir/words.txt"
 filename_words_ext = "working_dir/words_ext.txt"
 filename_tags = "working_dir/tags.txt"
 filename_chars = "working_dir/chars.txt"
 
+# load vocabs
 vocab_words = load_vocab(filename_words)
 vocab_tags = load_vocab(filename_tags)
 vocab_chars = load_vocab(filename_chars)
@@ -90,7 +87,6 @@ processing_word = get_processing_word(vocab_words,
                                       vocab_chars, lowercase=True, chars=use_chars)
 processing_tag = get_processing_word(vocab_tags,
                                      lowercase=False, allow_unk=False)
-
 model = RefModel(processing_word=processing_word,processing_tag=processing_tag,vocab_chars=vocab_chars,
                  vocab_words=vocab_words,vocab_tags=vocab_tags,nwords=nwords,nchars=nchars,
                  ntags=ntags,dir_output=dir_output,dir_model=dir_model,use_chars=use_chars,random_state=0,

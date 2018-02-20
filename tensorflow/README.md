@@ -3,6 +3,8 @@
 ## How to
 A model can be trained using ref_model. All parameters can be tuned there too (see comments). In order to do this, be sure to have both dataset and pretrained vectors in the main directory, or change folder info accordingly.
 
+    python ref_model.py
+
 ## Contents
 * `README.md` this file.
 * `utils/`
