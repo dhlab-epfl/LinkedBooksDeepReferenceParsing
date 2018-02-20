@@ -30,45 +30,71 @@ Danny
 *   Code cleanup
 *   Tests with learning rate and multi-task fine-tune
 *   Improve Keras readme ?
+*   add CRF baseline code in crf_baseline/
 *   ~~Neural ParsCit~~
 
 ## Task
+
+
 
 ## Contents
 
 * `LICENSE` MIT.
 * `README.md` this file.
 * `dataset/`
-    * [annotated_dataset](dataset/annotated_dataset.json.zip) The annotated dataset in json format (zip compressed).
-    * [report.p](dataset/report.p) A set of statistics on the annotated dataset, pickled.
-    * [report.txt](dataset/report.txt) A set of statistics on the annotated dataset, txt.
-    * [sources](dataset/sources.csv) List of monographs and journal issues which have been annotated, with number of annotated pages for each, and link to the Italian catalog for the relative entry. Separator `,`.
-* `M1.ipynb` a Python notebook to train a CRF parsing model using specific reference tags (e.g. author, title, publication year). You can use the annotated dataset in json format as input here.
-* `M2.ipynb` a Python notebook to train a CRF parsing model using generic begin/end reference tags (e.g. begin-secondary, in-secondary, end-secondary for a reference to a secondary source).
-* `models/`
-    * [modelM1](models/modelM1_ALL_L.pkl) trained model 1, details in the paper.
-    * [modelM2](models/modelM1_ALL_L.pkl) trained model 2, details in the paper.
-* `code/`
-    * [support_functions](code/support_functions.py) supporting functions for training/testing, plotting and parsing references.
-    * [feature_extraction](code/feature_extraction_words.py) feature extraction functions, document level.
-    * [feature_extraction_supporting_functions](code/feature_extraction_supporting_functions_words.py) feature extraction functions, token level.
-
+    * [train](dataset/clean_test.txt) Train split, CoNLL format.
+    * [test](dataset/clean_train.txt) Test split, CoNLL format.
+    * [validation](dataset/clean_valid.txt) Validation split, CoNLL format.
+* [compressed dataset](dataset.tar.gz) Compressed dataset.
+* [data facts](Data%20Facts.ipynb) a Python notebook to explore the dataset (number of references, tag distributions).
+* `crf_baseline/`
+    * [readme](crf_baseline/README.md) CRF baseline implementation details.
+    * ...
+* `keras/`
+    * [readme](keras/README.md) Keras implementation details.
+    * ...
+* `tensorflow/`
+    * [readme](tensorflow/README.md) TF implementation details.
+    * ...
 
 ## Dataset
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1175213.svg)](https://doi.org/10.5281/zenodo.1175213)
+Example of dataset entry (beginning of validation dataset, first line/sequence). Token Task1tag Task2tag Task3tag:
+
+    -DOCSTART- -X- -X- o
+
+
+    C author b-secondary b-r
+    . author i-secondary i-r
+    Agnoletti author i-secondary i-r
+    , author i-secondary i-r
+    Treviso title i-secondary i-r
+    e title i-secondary i-r
+    le title i-secondary i-r
+    sue title i-secondary i-r
+    pievi title i-secondary i-r
+    . title i-secondary i-r
+    Illustrazione title i-secondary i-r
+    storica title i-secondary i-r
+    , title i-secondary i-r
+    Treviso publicationplace i-secondary i-r
+    1898 year i-secondary i-r
+    , year i-secondary i-r
+    2 publicationspecifications i-secondary i-r
+    v publicationspecifications e-secondary i-r
+    . publicationspecifications e-secondary e-r
+
+Pre-trained word vectors can be downloaded at the following address: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1175213.svg)](https://doi.org/10.5281/zenodo.1175213)
 
 ## Implementations
 
 ### CRF baseline
 
+MISSING: Danny
+
 ### Keras
 
-The directory contains code to run the models with a Keras implementation. Code for both single and multitask models are given. For the single tasks, one model for each of the three tasks will be computed by running the python script *main_threeTasks.py*. The multitask learning model can be computed with the script *main_multiTaskLearning.py*.
-
-The data is expected to be in a *data* folder, one directory up, with three files inside it: *train.txt* for the training dataset, *test.txt* for the testing dataset, and *valid.txt* for the validation dataset.
-
-The results will be stored into the *model_results* folder, with one directory created for each model.
+See internal [readme](keras/README.md) for details.
 
 ### Tensor Flow
 
@@ -76,9 +102,6 @@ See internal [readme](tensorflow/README.md) for details.
 
 This implementation borrows from [Guillaume Genthial's Sequence Tagging with Tensorflow](https://guillaumegenthial.github.io/sequence-tagging-with-tensorflow.html).
 
+## Please cite as
 
-
-
-
-
-
+TBD
