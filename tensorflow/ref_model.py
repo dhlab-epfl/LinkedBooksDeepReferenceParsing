@@ -25,33 +25,33 @@ class RefModel(BaseEstimator, ClassifierMixin):
         """
         Initialize the RefModel by simply storing all the hyperparameters.
 
-        :param processing_word: function to process words
-        :param processing_tag: function to process tags
-        :param vocab_chars: vocabulary of characters
-        :param vocab_words: vocabulary of words
-        :param vocab_tags: vocabulary of tags
-        :param nwords: number of words
-        :param nchars: number of characters
-        :param ntags: number of tags
-        :param dir_output: output directory
-        :param dir_model: model output directory
-        :param dim_word: dimensionality of word embeddings
-        :param dim_char: dimensionality of character embeddings
-        :param use_pretrained: if to use pretrained embeddings
-        :param train_embeddings: if to further train embeddings
-        :param dropout: propout percentage
-        :param batch_size: batch size
-        :param lr_method: learning method (adagrad, sgd, rmsprop)
-        :param lr: learning rate
-        :param lr_decay: learning rate
-        :param clip: clip rate
-        :param nepoch_no_imprv: early stopping number of epochs before interrupting without improvements
-        :param l2_reg_lambda: lambda for l2 regularization
-        :param hidden_size_char: size of hidden character lstm layer
-        :param hidden_size_lstm: size of hidden lstm layer
-        :param use_crf: if to use crf prediction
-        :param use_chars: if to use characters
-        :param use_cnn: if to use cnn over lstm for character embeddings
+        :param processing_word: (function) to process words
+        :param processing_tag: (function) to process tags
+        :param vocab_chars: (dictionary) of characters
+        :param vocab_words: (dictionary) of words
+        :param vocab_tags: (dictionary) of tags
+        :param nwords: (int) number of words
+        :param nchars: (int) number of characters
+        :param ntags: (int) number of tags
+        :param dir_output: (string) output directory
+        :param dir_model: (string) model output directory
+        :param dim_word: (int) dimensionality of word embeddings
+        :param dim_char: (int) dimensionality of character embeddings
+        :param use_pretrained: (bool) if to use pretrained embeddings
+        :param train_embeddings: (bool) if to further train embeddings
+        :param dropout: (float between 0 and 1) propout percentage
+        :param batch_size: (int) batch size
+        :param lr_method: (string) learning method (adagrad, sgd, rmsprop)
+        :param lr: (float) learning rate
+        :param lr_decay: (float between 0 and 1) learning rate
+        :param clip: (float) clip rate
+        :param nepoch_no_imprv: (int) early stopping number of epochs before interrupting without improvements
+        :param l2_reg_lambda: (float) lambda for l2 regularization
+        :param hidden_size_char: (int) size of hidden character lstm layer
+        :param hidden_size_lstm: (int) size of hidden lstm layer
+        :param use_crf: (bool) if to use crf prediction
+        :param use_chars: (bool) if to use characters
+        :param use_cnn: (bool) if to use cnn over lstm for character embeddings
         :param random_state: (int) random state
         """
 
@@ -142,8 +142,8 @@ class RefModel(BaseEstimator, ClassifierMixin):
         """
         Given some data, pad it and build a feed dictionary
 
-        :param words: list of sentences. A sentence is a list of ids of a list of words. A word is a list of ids
-        :param labels: list of ids
+        :param words: (list) of sentences. A sentence is a list of ids of a list of words. A word is a list of ids
+        :param labels: (list) of ids
         :param lr: (float) learning rate
         :param dropout: (float) keep prob
         :return: dict {placeholder: value}
@@ -376,8 +376,8 @@ class RefModel(BaseEstimator, ClassifierMixin):
         """
         Predict for a batch of data
 
-        :param words: list of sentences
-        :return: list of labels for each sentence
+        :param words: (list) of sentences
+        :return: (list) of labels for each sentence
             sequence_length
         """
 
@@ -408,11 +408,11 @@ class RefModel(BaseEstimator, ClassifierMixin):
         """
         Performs one complete pass over the train set and evaluate on dev
 
-        :param X_train:
-        :param y_train:
-        :param X_dev:
-        :param y_dev:
-        :param epoch:
+        :param X_train: (list) with training data
+        :param y_train: (list) with training labels
+        :param X_dev: (list) with testing data
+        :param y_dev: (list) with testing labels
+        :param epoch: (int) which epoch it is
         :return: (python float) score to select model on, higher is better
         """
 
@@ -466,8 +466,8 @@ class RefModel(BaseEstimator, ClassifierMixin):
         """
         Evaluates performance on test set
 
-        :param X_dev:
-        :param y_dev:
+        :param X_dev:(list) with dev data
+        :param y_dev: (list) with dev labels
         :return: (dict) metrics["acc"] = 98.4, ...
         """
 
@@ -502,7 +502,10 @@ class RefModel(BaseEstimator, ClassifierMixin):
 
 
     def _reinitialize_weights(self, scope_name):
-        """Reinitializes the weights of a given layer"""
+        """Reinitializes the weights of a given layer
+
+        :param scope_name: (string) scope of variables to reinitialize
+        """
 
         variables = tf.contrib.framework.get_variables(scope_name)
         init = tf.variables_initializer(variables)
@@ -553,7 +556,10 @@ class RefModel(BaseEstimator, ClassifierMixin):
 
     def _restore_model_params(self, model_params):
         """From: https://github.com/ageron/handson-ml/blob/master/11_deep_learning.ipynb
-        Set all variables to the given values (for early stopping, faster than loading from disk)"""
+        Set all variables to the given values (for early stopping, faster than loading from disk)
+
+        :param model_params: (dict) parameters of the model to restore
+        """
 
         gvar_names = list(model_params.keys())
         assign_ops = {gvar_name: self._graph.get_operation_by_name(gvar_name + "/Assign")
@@ -586,12 +592,12 @@ class RefModel(BaseEstimator, ClassifierMixin):
         """
         Performs training with early stopping and lr exponential decay
 
-        :param X:
-        :param y:
-        :param X_valid:
-        :param y_valid:
-        :param nepochs:
-        :return:
+        :param X: (list) data
+        :param y: (list) labels
+        :param X_valid: (list) validation data
+        :param y_valid: (list) validation data
+        :param nepochs: (int) number of epochs to run for
+        :return: self (model, instance of RefModel)
         """
 
         self.close_session()
@@ -636,8 +642,8 @@ class RefModel(BaseEstimator, ClassifierMixin):
         """
         Returns list of predicted tags
 
-        :param words_raw: words_raw: list of words (string), just one sentence (no batch)
-        :return preds: list of tags (string), one for each word in the sentence
+        :param words_raw: (list) of words (string), just one sentence (no batch)
+        :return preds: (list) of tags (string), one for each word in the sentence
         """
 
         words = [self.processing_word(w) for w in words_raw]
@@ -653,8 +659,8 @@ class RefModel(BaseEstimator, ClassifierMixin):
         """
         Evaluate model on test set
 
-        :param X_dev:
-        :param y_dev:
+        :param X_dev: (list) dev data
+        :param y_dev: (list) dev labels
         :return: (dict) of metrics
         """
 
@@ -675,8 +681,9 @@ if __name__ == "__main__":
     max_iter = None  # if None, max number of examples in Dataset
 
     # general config
-    dir_output = "results/train_%d"%which_tags
+    dir_output = "results/test_run"
     dir_model = os.path.join(dir_output, "model.weights") # not in use here, best model is stored in primary memory
+
     # vocabs (created with build_data.py)
     filename_words = "working_dir/words.txt"
     filename_words_ext = "working_dir/words_ext.txt"
@@ -702,7 +709,6 @@ if __name__ == "__main__":
                                           vocab_chars, lowercase=True, chars=use_chars)
     processing_tag = get_processing_word(vocab_tags,
                                          lowercase=False, allow_unk=False)
-
     X_dev, y_dev = coNLLDataset_full(filename_dev, processing_word, processing_tag, max_iter, which_tags)
     X_train, y_train = coNLLDataset_full(filename_train, processing_word, processing_tag, max_iter, which_tags)
     X_valid, y_valid = coNLLDataset_full(filename_test, processing_word, processing_tag, max_iter, which_tags)
@@ -718,7 +724,6 @@ if __name__ == "__main__":
                      train_embeddings=True, dim_char=100, lr_method="rmsprop")
 
     fitted = model.fit(X_train, y_train, X_dev, y_dev, 50)
-    fitted.save_session()
     print("Final f1 score: ",fitted.best_score)
     print("\nValidation:")
     print(str(fitted.evaluate(X_valid, y_valid)))

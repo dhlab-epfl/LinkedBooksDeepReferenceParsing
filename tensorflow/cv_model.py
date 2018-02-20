@@ -24,7 +24,7 @@ max_iter = None  # if not None, max number of examples in Dataset
 n_epocs = 25
 dim_words = [100,300] # pretrained word embeddings, be they exist!
 
-# vocabs (created with build_data.py)
+# vocabs (created with build_data)
 filename_words = "working_dir/words.txt"
 filename_words_ext = "working_dir/words_ext.txt"
 filename_tags = "working_dir/tags.txt"
@@ -37,6 +37,7 @@ build_data(filename_dev,filename_test,filename_train,dim_words,filename_words,
                filename_word_vec_trimmed="../pretrained_vectors/vecs_{}.trimmed.npz",
                which_tags=which_tags)
 
+# load vocabs
 vocab_words = load_vocab(filename_words)
 if use_pretrained:
     vocab_words = load_vocab(filename_words_ext)
@@ -51,7 +52,6 @@ processing_word = get_processing_word(vocab_words,
                                       vocab_chars, lowercase=True, chars=use_chars)
 processing_tag = get_processing_word(vocab_tags,
                                      lowercase=False, allow_unk=False)
-
 X_dev, y_dev = coNLLDataset_full(filename_dev, processing_word, processing_tag, max_iter, which_tags)
 X_train, y_train = coNLLDataset_full(filename_train, processing_word, processing_tag, max_iter, which_tags)
 X_valid, y_valid = coNLLDataset_full(filename_test, processing_word, processing_tag, max_iter, which_tags)
@@ -92,6 +92,7 @@ def train_model(config,conf_id):
     print("Test final f1 score: ", fitted.best_score)
     ev_msg = fitted.evaluate(X_valid, y_valid)
 
+    # report
     with open(os.path.join("results/%s"%(task_dir),"cv_report.txt"),"a") as f:
         f.write("------------\n")
         f.write("Model: %s\n"%model_name)
@@ -145,5 +146,4 @@ if __name__ == "__main__":
 
     for n,c in enumerate(combinations):
         config = {k:v for k,v in zip(allNames,c)}
-
         train_model(config,n)
