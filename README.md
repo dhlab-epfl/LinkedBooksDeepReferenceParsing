@@ -29,8 +29,9 @@ Danny
 *   Provide some more on error analysis (examples of miss-classified instances, etc.). TO BE DISCUSSED first
 *   Code cleanup
 *   Tests with learning rate and multi-task fine-tune
-*   Improve Keras readme ?
+*   Improve Keras readme 
 *   add CRF baseline code in crf_baseline/
+*   Update notebook with new data organisation
 *   ~~Neural ParsCit~~
 
 ## Task
