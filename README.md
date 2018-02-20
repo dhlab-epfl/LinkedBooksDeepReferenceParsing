@@ -27,11 +27,11 @@ Danny
 *   ~~Push (in a separate branch) the clean Keras code (for single and multi task)~~
 *   ~~Add info on how to use it in the README~~
 *   Provide some more on error analysis (examples of miss-classified instances, etc.). TO BE DISCUSSED first
-*   Code cleanup
-*   Tests with learning rate and multi-task fine-tune
+*   ~~Code cleanup~~
+*   Test learning rate and multi-task fine-tune
 *   Improve Keras readme 
-*   add CRF baseline code in crf_baseline/
-*   Update notebook with new data organisation
+*   ~~add CRF baseline code in crf_baseline/~~
+*   ~~Update notebook with new data organisation~~
 *   ~~Neural ParsCit~~
 
 ## Task
@@ -91,7 +91,7 @@ Pre-trained word vectors can be downloaded at the following address: [![DOI](htt
 
 ### CRF baseline
 
-MISSING: Danny
+See internal [readme](crf_baseline/README.md) for details.
 
 ### Keras
 

@@ -6,7 +6,19 @@ The data is expected to be in a *dataset* folder, one directory above, with thre
 
 The results will be stored into the *model_results* folder, with one directory created for each model.
 
-## Import
+    python main_finetune.py
+    python main_threeTasks.py
+    python validation.py
+
+## Contents
+* `README.md` this file.
+* `code/`
+    * [models](code/models.py) code to create, train and validated NN models.
+    * [utils](code/utils.py) utility functions to run the models.
+* [main_multiTaskLearning](main_multiTaskLearning.py) python script to run the multi-task model.
+* [main_threeTasks](main_threeTasks.py) python script to train one NN model for each task.
+
+## Dependencies
 The experiments where produced with:
 * Keras : version 2.1.1
 * TensorFlow: 1.4.0
