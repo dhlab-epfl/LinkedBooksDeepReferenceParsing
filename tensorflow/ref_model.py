@@ -522,6 +522,10 @@ class RefModel(BaseEstimator, ClassifierMixin):
 
     def restore_session(self):
         """Reload weights into session"""
+        self._graph = tf.Graph()
+        with self._graph.as_default():
+            self.build()
+        self._session = tf.Session(graph=self._graph)
         self._saver.restore(self._session, self.dir_model)
 
 
