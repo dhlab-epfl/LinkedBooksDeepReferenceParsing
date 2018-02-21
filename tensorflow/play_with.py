@@ -4,8 +4,6 @@ Borrows from: https://github.com/guillaumegenthial/sequence_tagging
 """
 
 import os
-from nltk.tokenize import WordPunctTokenizer
-word_punct_tokenizer = WordPunctTokenizer()
 
 from ref_model import RefModel
 from model.data_utils import load_vocab, get_processing_word, coNLLDataset_full
@@ -24,9 +22,9 @@ def interactive_shell(model):
     while True:
         sentence = input("input> ")
 
-        words_raw = word_punct_tokenizer.tokenize(sentence.strip())
+        words_raw = sentence.strip().split()
 
-        if words_raw in ["exit","quit","bye","q","stop"]:
+        if words_raw and words_raw[0] in ["exit","quit","bye","q","stop"]:
             break
 
         preds = model.predict(words_raw)
