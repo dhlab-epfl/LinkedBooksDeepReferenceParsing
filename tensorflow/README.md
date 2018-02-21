@@ -4,6 +4,8 @@
 A model can be trained using ref_model. All parameters can be tuned there too (see comments). In order to do this, be sure to have both dataset and pretrained vectors in the main directory, or change folder info accordingly.
 
     python ref_model.py
+    
+Once a model is trained, it can be used interactively calling `play_with.py`. Model selection can be done using `cv_model.py` which implements grid search.
 
 ## Contents
 * `README.md` this file.
@@ -20,5 +22,6 @@ A model can be trained using ref_model. All parameters can be tuned there too (s
 * Sklearn : 0.19.1
 * Python 3.5
 
-## TODO
-* add a conf file, ideally shared with the implementation in Keras
+## Future work
+* Add a conf file, ideally shared with the implementation in Keras.
+* Add a multitask implementation.

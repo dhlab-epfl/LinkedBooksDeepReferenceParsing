@@ -40,9 +40,9 @@ which_tags = -3  # -1, -2, -3: Ackerman author b-secondary b-r
 use_chars = True
 max_iter = None  # if None, max number of examples in Dataset
 
-# general config
+# general config: trained model directory
 dir_output = "results/test_run"
-dir_model = os.path.join(dir_output, "model.weights") # not in use here, best model is stored in primary memory
+dir_model = os.path.join(dir_output, "model.weights")
 
 # vocabs (created with build_data)
 filename_words = "working_dir/words.txt"

@@ -34,9 +34,14 @@ Danny
 *   ~~Update notebook with new data organisation~~
 *   ~~Neural ParsCit~~
 
-## Task
+## Task definition
 
+We focus on the task of reference mining, instantiated into three tasks: reference components detection (task 1), reference typology detection (task 2) and reference span detection (task 3).
 
+* Sequence: *G. Ostrogorsky, History of the Byzantine State, Rutgers University Press, 1986.*
+* Task 1: *author author title title title title title publisher publisher publisher year*
+* Task 2: *b-secondary i-secondary ... e-secondary*
+* Task 3: *b-r i-r ... e-r*
 
 ## Contents
 
@@ -60,7 +65,7 @@ Danny
 
 ## Dataset
 
-Example of dataset entry (beginning of validation dataset, first line/sequence). Token Task1tag Task2tag Task3tag:
+Example of dataset entry (beginning of validation dataset, first line/sequence): Token Task1tag Task2tag Task3tag`:
 
     -DOCSTART- -X- -X- o
 
@@ -85,7 +90,7 @@ Example of dataset entry (beginning of validation dataset, first line/sequence).
     v publicationspecifications e-secondary i-r
     . publicationspecifications e-secondary e-r
 
-Pre-trained word vectors can be downloaded at the following address: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1175213.svg)](https://doi.org/10.5281/zenodo.1175213)
+Pre-trained word vectors can be downloaded from Zenodo: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1175213.svg)](https://doi.org/10.5281/zenodo.1175213)
 
 ## Implementations
 
