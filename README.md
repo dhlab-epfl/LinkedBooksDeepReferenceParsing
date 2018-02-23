@@ -15,7 +15,7 @@ Giovanni
 
 *	~~Add dataset to repo and update this file (remove the not used annotation scheme, position 3 in a split)~~
 *	~~How to share pretrained vectors? is it worth it? Zenodo is an option.~~
-*   Paper writing
+*   ~~Paper writing~~
 *   ~~Tensorflow code~~
 *   Check everything
 
@@ -26,10 +26,10 @@ Danny
 *   ~~Prepare a data analysis notebook with a selection of results (esp. from 0. Data Analysis, Appendix C)~~
 *   ~~Push (in a separate branch) the clean Keras code (for single and multi task)~~
 *   ~~Add info on how to use it in the README~~
-*   Provide some more on error analysis (examples of miss-classified instances, etc.). TO BE DISCUSSED first
+*   ~~Provide some more on error analysis (examples of miss-classified instances, etc.). TO BE DISCUSSED first~~
 *   ~~Code cleanup~~
 *   Test learning rate and multi-task fine-tune
-*   Improve Keras readme 
+*   ~~Improve Keras readme~~
 *   ~~add CRF baseline code in crf_baseline/~~
 *   ~~Update notebook with new data organisation~~
 *   ~~Neural ParsCit~~
@@ -53,22 +53,15 @@ We focus on the task of reference mining, instantiated into three tasks: referen
     * [validation](dataset/clean_valid.txt) Validation split, CoNLL format.
 * [compressed dataset](dataset.tar.gz) Compressed dataset.
 * [data facts](Data%20Facts.ipynb) a Python notebook to explore the dataset (number of references, tag distributions).
-* `crf_baseline/`
-    * [readme](crf_baseline/README.md) CRF baseline implementation details.
-    * ...
-* `keras/`
-    * [readme](keras/README.md) Keras implementation details.
-    * ...
-* `tensorflow/`
-    * [readme](tensorflow/README.md) TF implementation details.
-    * ...
+* [crf_baseline](crf_baseline) CRF baseline implementation details.
+* [keras](keras) Keras implementation details.
+* [tensorflow](tensorflow) TF implementation details.
 
 ## Dataset
 
 Example of dataset entry (beginning of validation dataset, first line/sequence): Token Task1tag Task2tag Task3tag`:
 
     -DOCSTART- -X- -X- o
-
 
     C author b-secondary b-r
     . author i-secondary i-r

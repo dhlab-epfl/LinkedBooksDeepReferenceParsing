@@ -1,7 +1,7 @@
 # Tensorflow implementation
 
 ## How to
-A model can be trained using ref_model. All parameters can be tuned there too (see comments). In order to do this, be sure to have both dataset and pretrained vectors in the main directory, or change folder info accordingly.
+A model can be trained using `ref_model.py. All parameters can be tuned there too (see comments). In order to do this, both dataset and pretrained vectors need to be stored as for the Keras implementation.
 
     python ref_model.py
     
