@@ -9,31 +9,6 @@ This repository contains the code for the following article:
           year         = 2018
         }
 
-## TODO
-
-Giovanni
-
-*	~~Add dataset to repo and update this file (remove the not used annotation scheme, position 3 in a split)~~
-*	~~How to share pretrained vectors? is it worth it? Zenodo is an option.~~
-*   ~~Paper writing~~
-*   ~~Tensorflow code~~
-*   Check everything
-
-Danny
-
-*   ~~Create high-res (vector) figures (and fix the fontsize of some of them!)~~
-*   ~~Check paper as I write, I am adding small TODOs there!~~
-*   ~~Prepare a data analysis notebook with a selection of results (esp. from 0. Data Analysis, Appendix C)~~
-*   ~~Push (in a separate branch) the clean Keras code (for single and multi task)~~
-*   ~~Add info on how to use it in the README~~
-*   ~~Provide some more on error analysis (examples of miss-classified instances, etc.). TO BE DISCUSSED first~~
-*   ~~Code cleanup~~
-*   Test learning rate and multi-task fine-tune
-*   ~~Improve Keras readme~~
-*   ~~add CRF baseline code in crf_baseline/~~
-*   ~~Update notebook with new data organisation~~
-*   ~~Neural ParsCit~~
-
 ## Task definition
 
 We focus on the task of reference mining, instantiated into three tasks: reference components detection (task 1), reference typology detection (task 2) and reference span detection (task 3).
