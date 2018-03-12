@@ -6,9 +6,8 @@ The data is expected to be in a *dataset* folder, in the main repository directo
 
 The results will be stored into the *model_results* folder, with one directory created for each model.
 
-    python main_finetune.py
     python main_threeTasks.py
-    python validation.py
+    python main_multiTaskLearning.py
 
 ## Contents
 * `README.md` this file.
