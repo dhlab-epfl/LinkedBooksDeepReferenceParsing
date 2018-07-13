@@ -5,8 +5,11 @@ This repository contains the code for the following article:
     @article{alves_deep_2018,
           author       = {{Rodrigues Alves, Danny and Giovanni Colavizza and Frédéric Kaplan}},
           title        = {{Deep Reference Mining from Scholarly Literature in the Arts and Humanities}},
-          journal      = {{Submitted to Frontiers in Research Metrics & Analytics}},
-          year         = 2018
+          journal      = {{Frontiers in Research Metrics & Analytics}},
+          volume       = 3,
+          number       = 21,
+          year         = 2018,
+          doi          = {10.3389/frma.2018.00021}
         }
 
 ## Task definition
@@ -76,6 +79,3 @@ See internal [readme](tensorflow/README.md) for details.
 
 This implementation borrows from [Guillaume Genthial's Sequence Tagging with Tensorflow](https://guillaumegenthial.github.io/sequence-tagging-with-tensorflow.html).
 
-## Please cite as
-
-TBD
