@@ -378,8 +378,8 @@ class Classification_Scores(Callback):
         self.params['metrics'].append("val_f1")
         
         # In case of multiple outputs
-        if len(self.model.output_layers) > 1:
-            for output_layer in self.model.output_layers:
+        if len(self.model.layers) > 1:
+            for output_layer in self.model.layers:
                 self.params['metrics'].append("val_"+output_layer.name+"_f1")
 
 
@@ -403,8 +403,8 @@ class Classification_Scores(Callback):
         """
             Compute and save the F1 score for the training data
         """
-        in_length  = len(self.model.input_layers)
-        out_length = len(self.model.output_layers)
+        in_length  = len(self.model._input_layers)
+        out_length = len(self.model.layers)
         predictions = self.model.predict(self.train_data[0])
         if len(predictions) != out_length:
             predictions = [predictions]
@@ -464,8 +464,8 @@ class Classification_Scores(Callback):
             Same model's weights for the best epoch.
         """
         self.compute_epoch_training_F1()
-        in_length  = len(self.model.input_layers)  # X data - to predict from
-        out_length = len(self.model.output_layers) # Number of tasks
+        in_length  = len(self.model._input_layers)  # X data - to predict from
+        out_length = len(self.model.layers) # Number of tasks
         
         # Compute the model predictions
         predictions = self.model.predict(self.validation_data[:in_length])
@@ -493,7 +493,7 @@ class Classification_Scores(Callback):
             vals_f1.append(_val_f1)
             
             # Add F1 score to be log
-            f1_name = "val_"+self.model.output_layers[i].name+"_f1"
+            f1_name = "val_"+self.model.layers[i].name+"_f1"
             logs[f1_name] = _val_f1
             
 
