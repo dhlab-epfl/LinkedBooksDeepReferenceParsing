@@ -18,10 +18,14 @@ The results will be stored into the *model_results* folder, with one directory c
 * [main_threeTasks](main_threeTasks.py) python script to train one NN model for each task.
 
 ## Dependencies
-* Keras : version 2.1.1
-* TensorFlow: 1.4.0
-* Numpy: 1.13.3
-* [Keras contrib](https://github.com/keras-team/keras-contrib) Keras contrib : 0.0.2
-* Sklearn : 0.19.1
-* [Sklearn crfsuite](https://sklearn-crfsuite.readthedocs.io/en/latest/index.html) Sklearn crfsuite : 0.3.6
-* Python 3.5	
+
+* Python 3.7
+
+See [requirements.txt](./requirements.txt) for a complete list of depdendencies.
+
+For setup, first create a new virtual environment using your favoured method, then install dependencies with:
+
+```
+pip3 install -r requirements.txt
+
+```
