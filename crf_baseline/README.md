@@ -22,8 +22,13 @@ The data is expected to be in a *dataset* folder, in the main repository directo
 * [main_threeTasks](main_threeTasks.py) python script to train one CRF model for each task.
 * [validation](validation.py) python script to compute classification score on validation dataset for the three tasks.
 
-## Dependencies 
-* Numpy: 1.13.3
-* Sklearn : 0.19.1
-* [Sklearn crfsuite](https://sklearn-crfsuite.readthedocs.io/en/latest/index.html) Sklearn crfsuite : 0.3.6
-* Python 3.5
+## Dependencies
+
+* Python 3.7
+
+See [requirements.txt](./requirements.txt) for a complete list of depdendencies.
+
+For setup, first create a new virtual environment using your favoured method, then install dependencies with:
+
+```
+pip3 install -r requirements.txt
