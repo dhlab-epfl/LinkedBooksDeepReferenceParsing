@@ -9,7 +9,7 @@ import time
 import sklearn_crfsuite
 from sklearn_crfsuite 	import scorers, metrics
 from sklearn.metrics 	import make_scorer, confusion_matrix
-from sklearn.externals 	import joblib
+import joblib
 
 
 # Utils functions
