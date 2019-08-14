@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 import sklearn_crfsuite
 from sklearn_crfsuite 	import scorers, metrics
 from sklearn.metrics 	import make_scorer, confusion_matrix
-from sklearn.externals 	import joblib
 from sklearn.model_selection import RandomizedSearchCV
+import joblib
 
 # For model validation
 import scipy
